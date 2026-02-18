@@ -1,3 +1,4 @@
+import '@mantine/core/styles.css';
 import {
   isRouteErrorResponse,
   Links,
@@ -6,9 +7,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { ColorSchemeScript, Container, MantineProvider, mantineHtmlProps } from '@mantine/core';
 
 import type { Route } from "./+types/root";
-import "./app.css";
+import { HeaderWithSearch } from './components/header';
+import { ErrorBoundaryComponent } from './components/errors/boundary';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,15 +28,21 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <ColorSchemeScript />
         <Meta />
         <Links />
       </head>
       <body>
-        {children}
+        <MantineProvider>
+          <Container size="md">
+            <HeaderWithSearch />
+            {children}
+          </Container>
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -62,14 +71,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <ErrorBoundaryComponent message={message} details={details} stack={stack} />
   );
 }
