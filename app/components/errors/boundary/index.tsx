@@ -14,7 +14,7 @@ export function ErrorBoundaryComponent({message, details, stack}:{ message: stri
             {details}
           </Text>
           <Group justify="center">
-            <Button size="md" component={Link} to={"/"}>Take me back to home page</Button>
+            <Button size="sm" component={Link} to={"/"}>Take me back to home page</Button>
           </Group>
         </div>
       </div>
