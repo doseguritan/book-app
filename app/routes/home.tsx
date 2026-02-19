@@ -1,14 +1,15 @@
+import BookHome from "./books/index";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Book Explorer App" },
+    { name: "description", content: "Welcome to Book Explorer" },
   ];
 }
 
 export default function Home() {
   return <>
-    this is configuration
+    <BookHome />
   </>;
 }
